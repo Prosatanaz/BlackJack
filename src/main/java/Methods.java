@@ -3,7 +3,6 @@ import java.util.*;
 public class Methods {
 
 
-
     public static List<String> shuffleStrings(List<String> source) {
         List<String> temp = new ArrayList<>(source);
         Collections.shuffle(temp);
@@ -75,10 +74,30 @@ public class Methods {
         return deck;
     }
 
-    public static int takeCard(Stack<String> deck, HashMap<String, Integer> stackCards) {
+    public static int takeCard(Stack<String> deck, HashMap<String, Integer> stackCards, String userName) {
         String currentCard = deck.pop();
-        int cardValue1 = stackCards.get(currentCard);
-        System.out.println(currentCard + " - " + cardValue1);
-        return cardValue1;
+        int cardValue = stackCards.get(currentCard);
+        System.out.println(userName + ": " + currentCard + " - " + cardValue);
+        return cardValue;
+    }
+
+    public static String getResult(Integer botScore, Integer playerScore) {
+        if (playerScore > 21) {
+            return "you lose";
+        }
+        if (botScore > 21) {
+            return "you winner";
+        }
+        if (playerScore > botScore) {
+            return "you winner";
+        }
+        if (playerScore < botScore) {
+            return "you lose";
+        }
+        return "draw";
     }
 }
+//  if (score>21){
+//                    System.out.println("ti v govne, nabral bolshe 21");
+//                }
+//
