@@ -96,8 +96,6 @@ public class Methods {
         }
         return "draw";
     }
+
+
 }
-//  if (score>21){
-//                    System.out.println("ti v govne, nabral bolshe 21");
-//                }
-//
