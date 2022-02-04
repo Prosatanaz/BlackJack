@@ -17,7 +17,6 @@ public class GameBlackJack {
 
 
         int playerID = 0;
-
         while (playerID < playersNumber) {
             String cardName = CardManager.takeCard(deck);
             users.get(playerID).setScore(CardManager.getCardValue(cardName));
@@ -50,6 +49,12 @@ public class GameBlackJack {
             playerID++;
         }
     }
+
+
+
+
+
+
 }
 
 
