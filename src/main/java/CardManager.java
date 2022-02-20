@@ -27,4 +27,8 @@ public class CardManager {
         deck.add(new Card(suit, "Three", 3));
         deck.add(new Card(suit, "Two", 2));
     }
+    public static void printCardStats(Card card) {
+        System.out.println("card name is: " + card.getName());
+        System.out.println("card suit is: " + card.getSuit());
+    }
 }

@@ -1,8 +1,9 @@
 import java.util.List;
+import java.util.Stack;
 
 public class GameManager {
 
-    public static void printResults(List<Player> players, int botScore){
+    public static void printResults(List<Player> players, int botScore) {
         for (Player player : players) {
             String resultOfGame = GameManager.getResultForPlayer(botScore, player.getScore());
             System.out.println(player.getName() + " - " + resultOfGame);
@@ -28,4 +29,6 @@ public class GameManager {
 
         return "draw";
     }
+
+
 }
