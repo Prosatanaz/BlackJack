@@ -1,10 +1,15 @@
+import java.util.LinkedList;
 import java.util.List;
 
-public class User {
+public class Player {
     private String name;
     private int score;
     private int balance;
-    private List<String> cards;
+    private List<Card> cards = new LinkedList<>();
+
+    public Player(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return name;
@@ -30,11 +35,16 @@ public class User {
         this.balance = balance;
     }
 
-    public List<String> getCards() {
+    public List<Card> getCards() {
         return cards;
     }
 
-    public void setCards(List<String> cards) {
+    public void setCards(List<Card> cards) {
         this.cards = cards;
+    }
+
+    public void addCard(Card card){
+        cards.add(card);
+        score += card.getValue();
     }
 }

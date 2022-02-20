@@ -1,4 +1,5 @@
 import java.io.Console;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class UserInput {
@@ -35,5 +36,20 @@ public class UserInput {
             }
         }
         return input;
+    }
+
+    public static boolean getChoice(String message) {
+        while (true) {
+            System.out.println(message);
+            String inputStr = scanner.nextLine().toLowerCase(Locale.ROOT);
+
+            if (inputStr.equals("yes") || inputStr.equals("y") || inputStr.equals("+")) {
+                return true;
+            } else if (inputStr.equals("no") || inputStr.equals("n") || inputStr.equals("-")) {
+                return false;
+            } else {
+                System.out.println("Некорректный ввод!");
+            }
+        }
     }
 }
