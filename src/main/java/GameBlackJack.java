@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 public class GameBlackJack {
@@ -14,31 +15,20 @@ public class GameBlackJack {
             players.add(new Player(UserInput.getString()));
         }
 
-        Stack<Card> deck = CardManager.generateDeck();
+        while (true) {
+            Map<Player, Integer> bets = GameManager.placeBets(players);
+            Stack<Card> deck = CardManager.generateDeck();
+            GameManager.playGame(players, deck);
 
-        for (Player player : players) {
-            Card card = deck.pop();
-            player.addCard(card);
-            CardManager.printCardStats(card);
+            Map<Player, GameResult> gameResults = GameManager.getResults(players, BotPlayer.getBotResult(deck));
+            GameManager.printResults(gameResults);
 
-            card = deck.pop();
-            player.addCard(card);
-            CardManager.printCardStats(card);
-            System.out.println(player.getScore());
-            String message = player.getName() + ", do you want to take one more card?";
-
-            while ((UserInput.getChoice(message)) && ((player.getScore()) < 21)) {
-                card = deck.pop();
-                player.addCard(card);
-                CardManager.printCardStats(card);
-
-                System.out.println(player.getName() + " score - " + player.getScore());
-                if (player.getScore() > 21) {
-                    System.out.println(player.getName() + ":you lose");
-                }
+            if (!UserInput.getChoice("do you want to play again?")){
+                break;
             }
+
+            players.forEach(Player::resetForNewGame);
         }
-        GameManager.printResults(players, BotPlayer.getBotResult(deck));
     }
 }
 

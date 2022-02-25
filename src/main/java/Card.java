@@ -1,36 +1,33 @@
 public class Card {
 
-    private String suit;
-    private String name;
-    private int value;
+    private final String suit;
+    private final String name;
+    private final int defaultValue;
+    private boolean isAceMinValue = false;
 
-    Card(String suit, String name, int value) {
+    Card(String suit, String name, int defaultValue) {
         this.suit = suit;
         this.name = name;
-        this.value = value;
+        this.defaultValue = defaultValue;
     }
 
     public String getSuit() {
         return suit;
     }
 
-    public void setSuit(String suit) {
-        this.suit = suit;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getValue() {
-        return value;
+        if (name.equals("Ace") && isAceMinValue) {
+            return 1;
+        }
+
+        return defaultValue;
     }
 
-    public void setValue(int value) {
-        this.value = value;
+    public void setIsAceMinValue(boolean aceMinValue) {
+        isAceMinValue = aceMinValue;
     }
 }

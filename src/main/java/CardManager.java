@@ -12,6 +12,23 @@ public class CardManager {
         return deck;
     }
 
+    public static void takeCardToUser(Stack<Card> deck, Player player){
+        Card card = deck.pop();
+        printCardStats(card);
+
+        String message = player.getName() + ", do you want to set Ace score to 1?";
+        if  (card.getName().equals("Ace") && UserInput.getChoice(message)) {
+            card.setIsAceMinValue(true);
+        }
+
+        player.addCard(card);
+    }
+
+    private static void printCardStats(Card card) {
+        System.out.println("card name is: " + card.getName());
+        System.out.println("card suit is: " + card.getSuit());
+    }
+
     private static void fillDeckBySuit(Stack<Card> deck, String suit){
         deck.add(new Card(suit, "Ace", 11));
         deck.add(new Card(suit, "King", 10));
@@ -26,9 +43,5 @@ public class CardManager {
         deck.add(new Card(suit, "Four", 4));
         deck.add(new Card(suit, "Three", 3));
         deck.add(new Card(suit, "Two", 2));
-    }
-    public static void printCardStats(Card card) {
-        System.out.println("card name is: " + card.getName());
-        System.out.println("card suit is: " + card.getSuit());
     }
 }
