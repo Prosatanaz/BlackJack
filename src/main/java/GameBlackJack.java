@@ -22,8 +22,9 @@ public class GameBlackJack {
 
             Map<Player, GameResult> gameResults = GameManager.getResults(players, BotPlayer.getBotResult(deck));
             GameManager.printResults(gameResults);
+            GameManager.getResultsOfBets(gameResults, bets);
 
-            if (!UserInput.getChoice("do you want to play again?")){
+            if (!UserInput.getChoice("do you want to play again?")) {
                 break;
             }
 

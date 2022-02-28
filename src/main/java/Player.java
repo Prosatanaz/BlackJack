@@ -29,11 +29,22 @@ public class Player {
         this.balance -= bet;
     }
 
+    public void addBet(int bet) {
+        this.balance += bet;
+    }
+    public void addBlackJackBet (int bet){
+        this.balance += bet * 2.5f;
+    }
+    public  void addWinBet (int bet){
+        this.balance += bet * 2;
+    }
+
     public List<Card> getCards() {
         return cards;
     }
 
-    public void resetForNewGame(){
+
+    public void resetForNewGame() {
         score = 0;
         cards = new LinkedList<>();
     }

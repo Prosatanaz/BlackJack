@@ -15,6 +15,16 @@ public class GameManager {
             }
         }
     }
+    public static void getResultsOfBets(Map<Player, GameResult> results, Map<Player, Integer> bets) {
+        for (Player player : results.keySet() ) {
+            switch (results.get(player)){
+                case BLACK_JACK -> player.addBlackJackBet(bets.get(player));
+                case WIN -> player.addBet(bets.get(player));
+                case DRAW -> player.addWinBet(bets.get(player));
+                case  LOSE -> player.getBalance();
+            }
+        }
+    }
 
     public static Map<Player, GameResult> getResults(List<Player> players, Integer botScore) {
         Map<Player, GameResult> results = new HashMap<>();
@@ -51,9 +61,12 @@ public class GameManager {
         return bets;
     }
 
+
+
     private static GameResult getResultForPlayer(Integer playerScore, Integer botScore) {
         //TODO: Fix
         if (playerScore == 21) {
+
             return GameResult.BLACK_JACK;
         }
 
