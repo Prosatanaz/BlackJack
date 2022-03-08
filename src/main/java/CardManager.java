@@ -2,7 +2,7 @@ import java.util.*;
 
 public class CardManager {
 
-    public static Stack<Card> generateDeck(){
+    public static Stack<Card> generateDeck() {
         Stack<Card> deck = new Stack<>();
         fillDeckBySuit(deck, "Diamonds");
         fillDeckBySuit(deck, "Clubs");
@@ -12,24 +12,30 @@ public class CardManager {
         return deck;
     }
 
-    public static void takeCardToUser(Stack<Card> deck, Player player){
+    public static Card takeCardToUser(Stack<Card> deck, Player player) {
         Card card = deck.pop();
         printCardStats(card);
 
-        String message = player.getName() + ", do you want to set Ace score to 1?";
-        if  (card.getName().equals("Ace") && UserInput.getChoice(message)) {
-            card.setIsAceMinValue(true);
-        }
 
-        player.addCard(card);
+    String message = player.getName() + ", do you want to set Ace score to 1?";
+        if(card.getName().
+
+    equals("Ace") &&UserInput.getChoice(message))
+
+    {
+        card.setIsAceMinValue(true);
     }
 
-    private static void printCardStats(Card card) {
+        player.addCard(card);
+        return card;
+}
+
+    public static void printCardStats(Card card) {
         System.out.println("card name is: " + card.getName());
         System.out.println("card suit is: " + card.getSuit());
     }
 
-    private static void fillDeckBySuit(Stack<Card> deck, String suit){
+    private static void fillDeckBySuit(Stack<Card> deck, String suit) {
         deck.add(new Card(suit, "Ace", 11));
         deck.add(new Card(suit, "King", 10));
         deck.add(new Card(suit, "Queen", 10));

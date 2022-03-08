@@ -1,14 +1,26 @@
 import java.util.Stack;
 
 public class BotPlayer {
-    public static int getBotResult(Stack<Card> deck){
-        int score = 0;
+    public static int getBotResult(Stack<Card> deck, int userScore) {
+        int score = getBotFirstCard(deck);
         int drawnCards = 0;
-        while ((drawnCards < 2) | (score < 16)) {
-            score += deck.pop().getValue();
+        while ((score < 16) || score <= userScore ) {
+            Card botCard = deck.pop();
+            CardManager.printCardStats(botCard);
+            score += botCard.getValue();
             System.out.println("Bot Score - " + score);
             drawnCards++;
         }
         return score;
     }
+
+    public static int getBotFirstCard(Stack<Card> deck) {
+        Card botFirstCard = deck.pop();
+        System.out.println("Bot card is - ");
+        CardManager.printCardStats(botFirstCard);
+        return botFirstCard.getValue();
+
+    }
+
+
 }

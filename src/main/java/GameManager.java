@@ -6,8 +6,8 @@ import java.util.Stack;
 public class GameManager {
 
     public static void printResults(Map<Player, GameResult> results) {
-        for (Player player : results.keySet() ) {
-            switch (results.get(player)){
+        for (Player player : results.keySet()) {
+            switch (results.get(player)) {
                 case BLACK_JACK -> System.out.println("J");
                 case WIN -> System.out.println("W");
                 case DRAW -> System.out.println("D");
@@ -15,13 +15,14 @@ public class GameManager {
             }
         }
     }
+
     public static void getResultsOfBets(Map<Player, GameResult> results, Map<Player, Integer> bets) {
-        for (Player player : results.keySet() ) {
-            switch (results.get(player)){
+        for (Player player : results.keySet()) {
+            switch (results.get(player)) {
                 case BLACK_JACK -> player.addBlackJackBet(bets.get(player));
                 case WIN -> player.addBet(bets.get(player));
                 case DRAW -> player.addWinBet(bets.get(player));
-                case  LOSE -> player.getBalance();
+                case LOSE -> player.getBalance();
             }
         }
     }
@@ -35,22 +36,21 @@ public class GameManager {
     }
 
     public static void playGame(List<Player> players, Stack<Card> deck) {
+        BotPlayer.getBotFirstCard(deck);
         for (Player player : players) {
-            CardManager.takeCardToUser(deck, player);
-            CardManager.takeCardToUser(deck, player);
-            String message = player.getName() + ", do you want to take one more card?";
+            Card firstCard = CardManager.takeCardToUser(deck, player);
+            Card secondCard = CardManager.takeCardToUser(deck, player);
+            if (firstCard.getName().equals(secondCard.getName())) {
+                if (UserInput.getChoice("Do you want to split game?"))
 
-            while ((UserInput.getChoice(message)) && ((player.getScore()) < 21)) {
-                CardManager.takeCardToUser(deck, player);
-                System.out.println(player.getName() + " score - " + player.getScore());
-                if (player.getScore() > 21) {
-                    System.out.println(player.getName() + ":you lose");
-                }
+                    splitGame(player, deck, firstCard, secondCard);
             }
+            serializeGame(player, deck);
+
         }
     }
 
-    public static Map<Player, Integer> placeBets(List<Player> players){
+    public static Map<Player, Integer> placeBets(List<Player> players) {
         String message = "how much do you want to bet?";
         Map<Player, Integer> bets = new HashMap<>();
         for (Player player : players) {
@@ -61,6 +61,27 @@ public class GameManager {
         return bets;
     }
 
+    private static void serializeGame(Player player, Stack<Card> deck) {
+        String message = player.getName() + ", do you want to take one more card?";
+
+        while ((UserInput.getChoice(message)) && ((player.getScore()) < 21)) {
+            CardManager.takeCardToUser(deck, player);
+            System.out.println(player.getName() + " score - " + player.getScore());
+            if (player.getScore() > 21) {
+                System.out.println(player.getName() + ":you lose");
+            }
+
+        }
+    }
+
+    private static void splitGame(Player player, Stack<Card> deck, Card firstCard, Card secondCard) {
+            player.setSplitScore(firstCard.getValue());
+        serializeGame(player, deck);
+        player.setSplitScore(secondCard.getValue());
+        serializeGame(player, deck);
+
+
+    }
 
 
     private static GameResult getResultForPlayer(Integer playerScore, Integer botScore) {
@@ -89,3 +110,6 @@ public class GameManager {
         return GameResult.DRAW;
     }
 }
+
+
+

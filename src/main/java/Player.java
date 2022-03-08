@@ -55,4 +55,9 @@ public class Player {
 
         System.out.println(score);
     }
+
+
+    public void setSplitScore(int score){
+        this.score = score;
+    }
 }

@@ -20,7 +20,7 @@ public class GameBlackJack {
             Stack<Card> deck = CardManager.generateDeck();
             GameManager.playGame(players, deck);
 
-            Map<Player, GameResult> gameResults = GameManager.getResults(players, BotPlayer.getBotResult(deck));
+            Map<Player, GameResult> gameResults = GameManager.getResults(players, BotPlayer.getBotResult(deck, players.get(playersCount).getScore()));
             GameManager.printResults(gameResults);
             GameManager.getResultsOfBets(gameResults, bets);
 
